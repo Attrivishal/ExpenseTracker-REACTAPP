@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* --- fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+:root{
+  --bg: #f7f8fb;
+  --card: #ffffff;
+  --muted: #6b7280;
+  --accent: #0f172a; /* dark accent for text */
+  --glass: rgba(255,255,255,0.6);
+  --radius: 14px;
+}
+
+/* base */
+html,body,#root { height:100%; font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; background: var(--bg); }
+
+/* main container */
+.app-shell {
+  min-height: 100vh;
+  padding: 28px;
+}
+
+/* clean card */
+.clean-card {
+  @apply bg-white rounded-[var(--radius)] shadow-[0_8px_30px_rgba(15,23,42,0.06)] border border-transparent;
+  border-radius: var(--radius);
+}
+
+/* subtle border for light layering */
+.layered {
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* headings */
+.h1 {
+  @apply text-3xl font-semibold text-[var(--accent)];
+  letter-spacing: -0.02em;
+}
+.h2 {
+  @apply text-xl font-medium text-[var(--accent)];
+}
+
+/* inputs */
+.input {
+  @apply w-full p-3 rounded-lg border border-transparent bg-gray-50 placeholder:text-gray-400 focus:outline-none;
+  box-shadow: inset 0 0 0 1px rgba(15,23,42,0.03);
+  transition: box-shadow .18s ease, transform .12s ease;
+}
+.input:focus {
+  box-shadow: 0 6px 18px rgba(15,23,42,0.04);
+  transform: translateY(-1px);
+}
+
+/* buttons */
+.btn {
+  @apply inline-flex items-center justify-center rounded-lg font-semibold px-4 py-2 shadow-none;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.btn-primary {
+  background: linear-gradient(180deg,#0ea5e9,#0284c7);
+  color: white;
+  box-shadow: 0 8px 24px rgba(3,105,161,0.12);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(3,105,161,0.14); }
+
+.btn-ghost {
+  @apply bg-transparent border border-gray-200 text-[var(--accent)] px-3 py-2;
+  border-radius: 10px;
+}
+
+/* stat card small */
+.stat {
+  @apply clean-card p-5;
+}
+.stat .value { @apply text-2xl font-bold text-[var(--accent)]; }
+.stat .label { @apply text-sm text-gray-500; }
+
+/* sidebar */
+.sidebar {
+  width: 260px;
+}
+.sidebar .nav-item {
+  @apply flex items-center gap-3 p-3 rounded-lg text-[var(--accent)] hover:bg-white;
+}
+.sidebar .nav-item.active {
+  @apply bg-white shadow-[0_6px_18px_rgba(15,23,42,0.06)];
+}
+
+/* subtle fade animation */
+.fade-up { animation: fadeUp .45s ease both; }
+@keyframes fadeUp {
+  from { opacity:0; transform: translateY(6px); } to { opacity:1; transform:none; }
+}
+
+/* responsive tweaks */
+@media (max-width: 900px) {
+  .sidebar { display:none; }
+  .app-shell { padding: 16px; }
+}
+
+
+/* mobile overlay z-index */
+@media (max-width: 768px) {
+  .sidebar { z-index: 40; }
+  main { z-index: 10; }
+}
+
+/* ensure inputs are large enough for touch */
+.input { min-height: 44px; }
+
+/* Buttons larger */
+.btn { min-height: 44px; }
+/* Smooth animations */
+* {
+  transition: all 0.2s ease;
+}
+
+/* Blur cards aesthetic */
+.glass {
+  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Active nav animation */
+button.active {
+  transform: scale(1.03);
+}
+
+/* Remove highlight on mobile */
+button, input, textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+/* chip shadows */
+.clean-card { background: var(--card, #fff); border-radius: 14px; box-shadow: 0 10px 40px rgba(15,23,42,0.06); }
+
+/* input nicer */
+.input { padding: 12px; border-radius: 10px; background: #fbfdff; border: 1px solid rgba(15,23,42,0.04); }
+
+/* btn primary */
+.btn-primary { background: linear-gradient(180deg,#6366F1,#4F46E5); color: white; padding: .6rem 1rem; border-radius: 10px; }
+
+/* small responsiveness fine-tuning */
+@media (max-width: 768px) {
+  .clean-card { padding: 1rem; }
+}

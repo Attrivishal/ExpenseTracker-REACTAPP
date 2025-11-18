@@ -1,5 +1,8 @@
+// src/utils/storage.js
 export const saveData = (key, data) => {
-  localStorage.setItem(key, JSON.stringify(data));
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch {}
 };
 
 export const loadData = (key) => {
@@ -12,5 +15,7 @@ export const loadData = (key) => {
 };
 
 export const clearData = (key) => {
-  localStorage.removeItem(key);
+  try {
+    localStorage.removeItem(key);
+  } catch {}
 };

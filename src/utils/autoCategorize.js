@@ -1,16 +1,19 @@
 // src/utils/autoCategorize.js
 const keywords = {
-  Food: ["zomato", "swiggy", "restaurant", "dine", "grocery", "grocer", "food"],
-  Travel: ["uber", "ola", "taxi", "bus", "train", "flight", "metro"],
-  Shopping: ["amazon", "flipkart", "paytm mall", "shopping", "mall"],
-  Bills: ["electricity", "water", "phone", "recharge", "bill"],
-  Education: ["course", "udemy", "coursera", "books", "stationary", "college"],
+  Food: ["zomato", "swiggy", "restaurant", "grocery", "shop", "cafe", "food"],
+  Travel: ["uber", "ola", "taxi", "bus", "train", "flight", "cab", "travel"],
+  Shopping: ["amazon", "flipkart", "shoes", "shirt", "shopping", "mall"],
+  Bills: ["electricity", "water", "phone", "recharge", "bill", "rent"],
+  Education: ["course", "udemy", "coursera", "books", "college"],
+  Entertainment: ["netflix", "hotstar", "spotify", "movie"],
 };
 
 export function autoCategorize(title = "") {
-  const t = title.toLowerCase();
+  const t = (title || "").toLowerCase();
   for (const [cat, arr] of Object.entries(keywords)) {
-    for (const w of arr) if (t.includes(w)) return cat;
+    for (const w of arr) {
+      if (t.includes(w)) return cat;
+    }
   }
   return "Other";
 }

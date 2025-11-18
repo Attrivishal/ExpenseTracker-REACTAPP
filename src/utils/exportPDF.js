@@ -1,48 +1,26 @@
+// src/utils/exportPDF.js
 import jsPDF from "jspdf";
 
-export const exportPDF = (expenses, username = "User") => {
+export const exportPDF = (expenses = [], username = "User") => {
   const doc = new jsPDF({ unit: "pt" });
-
   doc.setFontSize(18);
   doc.text(`${username} — Expense Report`, 40, 40);
-
   doc.setFontSize(12);
 
-  const formatDate = (d) =>
-    d ? new Date(d).toLocaleDateString("en-IN") : "N/A";
-
-  const pad = (txt, width) => String(txt).padEnd(width, " ");
-
-  let y = 80;
-
-  const chunk = (arr, n) => {
-    const out = [];
-    for (let i = 0; i < arr.length; i += n) {
-      out.push(arr.slice(i, i + n));
-    }
-    return out;
-  };
-
-  const pages = chunk(expenses, 30);
-
-  pages.forEach((page, pageIndex) => {
+  let y = 70;
+  const perPage = 30;
+  for (let p = 0; p < Math.ceil(expenses.length / perPage); p++) {
+    const page = expenses.slice(p * perPage, (p + 1) * perPage);
     page.forEach((e, i) => {
-      const line = `${String(i + 1 + pageIndex * 30).padEnd(3)}  ${pad(
-        e.title,
-        20
-      )}  |  ₹${pad(e.amount, 8)}  |  ${pad(e.category, 10)}  |  ${formatDate(
-        e.date
-      )}`;
-
+      const line = `${p * perPage + i + 1}. ${e.title} | ₹${e.amount} | ${e.category} | ${new Date(e.date).toLocaleDateString()}`;
       doc.text(line, 40, y);
       y += 18;
-
-      if (y > 740) {
-        doc.addPage();
-        y = 40;
-      }
+      if (y > 740) y = 40;
     });
-  });
-
+    if (p < Math.ceil(expenses.length / perPage) - 1) {
+      doc.addPage();
+      y = 70;
+    }
+  }
   doc.save("Expense_Report.pdf");
 };

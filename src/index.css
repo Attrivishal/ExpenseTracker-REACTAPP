@@ -149,3 +149,93 @@ button, input, textarea {
 @media (max-width: 768px) {
   .clean-card { padding: 1rem; }
 }
+
+/* Add these small tweaks to make gradients and spacing nicer */
+:root {
+  --card-bg: #ffffff;
+  --muted: #6b7280;
+}
+
+/* subtle card lift */
+.shadow-2xl { box-shadow: 0 20px 60px rgba(16,24,40,0.08); }
+
+/* focus ring for inputs */
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(99,102,241,0.12);
+}
+
+/* rounded large */
+.rounded-2xl { border-radius: 16px; }
+
+/* smooth transforms */
+button { transition: transform .12s ease, box-shadow .12s ease; }
+button:hover { transform: translateY(-2px); }
+
+/* small responsive fix */
+@media (max-width: 640px) {
+  .max-w-2xl { padding: 0 1rem; }
+}
+
+/* Sidebar tooltip for collapsed state */
+.tooltip-left {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(15,23,42,0.95);
+  color: white;
+  padding: 6px 10px;
+  border-radius: 8px;
+  white-space: nowrap;
+  margin-left: 10px;
+  font-size: 13px;
+  box-shadow: 0 6px 20px rgba(2,6,23,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: all .18s ease;
+}
+
+/* show tooltip when hovering the button (only in collapsed mode) */
+aside.w-20 .relative:hover .tooltip-left {
+  opacity: 1;
+  transform: translateY(-50%) translateX(6px);
+  pointer-events: auto;
+}
+
+/* subtle shadow and rounded */
+.shadow-2xl { box-shadow: 0 18px 60px rgba(2,6,23,0.12); }
+
+/* mobile panel z-index fix */
+.z-60 { z-index: 60; }
+
+
+:root { color-scheme: light; }
+:root.dark { color-scheme: dark; }
+
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideIn {
+  animation: slideIn 0.4s ease-out;
+}

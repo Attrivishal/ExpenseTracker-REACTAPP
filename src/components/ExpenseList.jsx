@@ -1,18 +1,24 @@
-import React, { useState } from "react";
+// src/components/ExpenseList.jsx
+import React, { useState, useMemo } from "react";
 import ExpenseItem from "./ExpenseItem";
 
-export default function ExpenseList({ expenses, onDelete, onEdit }) {
+export default function ExpenseList({ expenses = [], onDelete, onEdit }) {
   const [q, setQ] = useState("");
-  const filtered = expenses.filter(
-    (e) =>
-      e.title.toLowerCase().includes(q.toLowerCase()) ||
-      e.category.toLowerCase().includes(q.toLowerCase())
-  );
+
+  const filtered = useMemo(() => {
+    const term = q.trim().toLowerCase();
+    if (!term) return expenses;
+    return expenses.filter(
+      (e) =>
+        (e.title || "").toLowerCase().includes(term) ||
+        (e.category || "").toLowerCase().includes(term)
+    );
+  }, [q, expenses]);
 
   return (
     <div>
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
-        <h2 className="h2">Transactions</h2>
+        <h2 className="text-2xl font-medium">Transactions</h2>
         <input
           placeholder="Search by title or category"
           value={q}
